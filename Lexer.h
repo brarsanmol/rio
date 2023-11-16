@@ -1,6 +1,7 @@
 #ifndef LEXER_H
 #define LEXER_H
 #include <fstream>
+#include <iostream>
 #include <unordered_map>
 
 #include "Scanner.h"
@@ -62,33 +63,39 @@ static const std::unordered_map<TokenType, std::string> TOKEN_TYPE_TO_STRING_MAP
     {RightSquareBracket, "RightSquareBracket"},
     {SemiColon, "SemiColon"},
     {Comma, "Comma"},
+
+    {Void, "Void"},
+    {Integer, "Integer"},
+    {String, "String"},
+    {Character, "Character"},
+
+    {If, "If"},
+    {Else, "Else"},
+    {While, "While"},
+    {Return, "Return"},
+
+    {IntegerLiteral, "IntegerLiteral"},
+    {StringLiteral, "StringLiteral"},
+    {CharacterLiteral, "CharacterLiteral"},
+
+    {LogicalAnd, "LogicalAnd"},
+    {LogicalOr, "LogicalOr"},
+
+    {EqualTo, "EqualTo"},
+    {NotEqualTo, "NotEqualTo"},
     {LessThan, "LessThan"},
     {GreaterThan, "GreaterThan"},
+    {LessThanOrEqualTo, "LessThanOrEqualTo"},
+    {GreaterThanOrEqualTo, "GreaterThanOrEqualTo"},
+
     {Plus, "Plus"},
     {Minus, "Minus"},
     {Multiplication, "Multiplication"},
     {Division, "Division"},
     {Remainder, "Remainder"},
+
     {EndOfFile, "EndOfFile"},
     {Invalid, "Invalid"},
-    {Void, "Void"},
-    {Identifier, "Identifier"},
-    {Integer, "Integer"},
-    {String, "String"},
-    {Character, "Character"},
-    {If, "If"},
-    {Else, "Else"},
-    {While, "While"},
-    {Return, "Return"},
-    {IntegerLiteral, "IntegerLiteral"},
-    {StringLiteral, "StringLiteral"},
-    {CharacterLiteral, "CharacterLiteral"},
-    {LogicalAnd, "LogicalAnd"},
-    {LogicalOr, "LogicalOr"},
-    {EqualTo, "EqualTo"},
-    {NotEqualTo, "NotEqualTo"},
-    {LessThanOrEqualTo, "LessThanOrEqualTo"},
-    {GreaterThanOrEqualTo, "GreaterThanOrEqualTo"}
 };
 
 struct Token {
@@ -108,11 +115,7 @@ struct Token {
         return *this;
     }
     friend std::ostream& operator<<(std::ostream& stream, Token const& token) {
-        const auto iterator = TOKEN_TYPE_TO_STRING_MAP.find(token.Type);
-        std::string type;
-        if (iterator != TOKEN_TYPE_TO_STRING_MAP.end()) {
-            type.assign(iterator->second);
-        }
+        const std::string& type = TOKEN_TYPE_TO_STRING_MAP.at(token.Type);
 
         stream
         << type
